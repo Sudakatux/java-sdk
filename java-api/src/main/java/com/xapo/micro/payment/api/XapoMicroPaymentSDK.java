@@ -64,17 +64,18 @@ public class XapoMicroPaymentSDK {
 		String buttonRequestEnc = encrypt(buttonRequestJson);
 
 		StringBuilder query = new StringBuilder();
+		query.append("customization={\"button_text\":\"");
+		query.append(request.getPayType());
+		query.append("\"}");
+
+		query.append("&");
 		query.append("app_id=");
 		query.append(appID);
-		query.append("&");
 
+		query.append("&");
 		query.append("button_request=");
 		query.append(buttonRequestEnc);
-		query.append("&");
 
-		query.append("customization={button_text: ");
-		query.append(request.getPayType());
-		query.append("}");
 
 		URI widgetUrl = createURI(query.toString());
 		return widgetUrl.toString();
@@ -83,7 +84,6 @@ public class XapoMicroPaymentSDK {
 
 	protected URI createURI(String query) {
 		try {
-
 			return new URI(serviceParameters.getScheme(), null /*userInfo*/,
 					serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query, null /* fragment */);
 		

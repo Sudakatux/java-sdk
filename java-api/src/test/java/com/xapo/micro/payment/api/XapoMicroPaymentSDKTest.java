@@ -2,6 +2,8 @@ package com.xapo.micro.payment.api;
 
 import static org.junit.Assert.*;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +11,7 @@ import com.xapo.micro.payment.api.model.ButtonRequest;
 
 public class XapoMicroPaymentSDKTest {
 
+	private static final String PAY_TYPE = "Donate";
 	private static final String APP_ID = "c9f2e90b018639fa";
 	private static final String APP_SECRET = "bc4e142dc053407b0028accffc289c18";
 	private static final String XAPO_URL = "http://dev.xapo.com:8089/pay_button/show";
@@ -32,7 +35,7 @@ public class XapoMicroPaymentSDKTest {
 		request.setSenderUserId("aSenderId");
 
 		// pay type: "Tip", "Pay", "Deposit" o "Donate"
-		request.setPayType("Tip");
+		request.setPayType(PAY_TYPE);
 		
 	}
 
@@ -43,7 +46,7 @@ public class XapoMicroPaymentSDKTest {
 
 		//TODO fail("Verificar si esta bien el Div");
 		System.err.println("Verificar si esta bien el Div");
-		System.out.println(div);
+		System.err.println(div);
 	}
 
 	@Test
@@ -52,7 +55,7 @@ public class XapoMicroPaymentSDKTest {
 		
 		//TODO fail("Verificar si esta bien el IFrame");
 		System.err.println("Verificar si esta bien el IFrame");
-		System.out.println(iframe);
+		System.err.println(iframe);
 	}
 
 	@Test
@@ -65,11 +68,17 @@ public class XapoMicroPaymentSDKTest {
 	@Test
 	public void testBuildWidgetUrl() {
 	String url = 	xapoMicroPaymentSDK.buildWidgetUrl(request);
-	System.out.println(url);
+//	System.out.println(url);
+
+	String colonStrPython = "%3A+";
+	String colonStrJava = ":";
+	System.err.println("verificar el encoding de :");
 	
-	assertTrue(url.startsWith(XAPO_URL+"?app_id="+APP_ID+"&button_request="));
-	// the encrypted json is in the miidle of this URL 
-	assertTrue(url.endsWith("&customization=%7Bbutton_text:%20"+request.getPayType()+"%7D"));
+	
+	String expectedStartURL =  XAPO_URL+"?customization=%7B%22button_text%22"+colonStrJava+"%22"+PAY_TYPE+"%22%7D&app_id="+APP_ID+"&button_request=";
+	String urlStart = url.substring(0, expectedStartURL.length());
+	assertEquals("URL start substring", expectedStartURL, urlStart);
+	// the encrypted json is in the tail of this URL 
 	
 	}
 

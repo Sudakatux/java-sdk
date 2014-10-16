@@ -8,24 +8,24 @@ public class JsonMarshaller {
 
 		StringBuilder json = new StringBuilder();
 
-		json.append("{request:{");
-		json.append("sender_user_id:");
+		json.append("{\"request\":{");
+		json.append("\"sender_user_id\":\"");
 		json.append(buttonRequest.getSenderUserId());
-		json.append(",sender_user_email:");
+		json.append("\",\"sender_user_email\":\"");
 		json.append(buttonRequest.getSenderUserEmail());
-		json.append(",sender_user_cellphone:");
+		json.append("\",\"sender_user_cellphone\":\"");
 		json.append(buttonRequest.getSenderUserCellphone());
-		json.append(",receiver_user_id:");
+		json.append("\",\"receiver_user_id\":\"");
 		json.append(buttonRequest.getReceiverUserId());
-		json.append(",receiver_user_email:");
+		json.append("\",\"receiver_user_email\":\"");
 		json.append(buttonRequest.getReceiverUserEmail());
-		json.append(",pay_object_id:");
+		json.append("\",\"pay_object_id\":\"");
 		json.append(buttonRequest.getPayObjectId());
-		json.append(",amount_BIT:");
+		json.append("\",\"amount_BIT\":");
 		json.append(buttonRequest.getAmountBIT());
-		json.append(",pay_type:");
+		json.append(",\"pay_type\":\"");
 		json.append(buttonRequest.getPayType());
-		json.append(",timestamp:");
+		json.append("\",\"timestamp\":");
 		json.append(buttonRequest.getTimestamp());
 		json.append("}}");
 
