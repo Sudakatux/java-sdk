@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 import com.xapo.micro.payment.api.model.ButtonRequest;
 import com.xapo.micro.payment.encrypt.AESencrypt;
-import com.xapo.micro.payment.xstream.JsonMarshaller;
+import com.xapo.micro.payment.json.JsonMarshaller;
 
 public class XapoMicroPaymentSDK {
 

@@ -29,10 +29,35 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+<!-- if Xtream must be added 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<mainClass></mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+-->			
 		</plugins>
 	</build>
 
 	<dependencies>
+<!--if Xtream must be added 
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -43,6 +68,7 @@
 			<artifactId>jettison</artifactId>
 			<version>1.3.3</version>
 		</dependency>
+-->	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
