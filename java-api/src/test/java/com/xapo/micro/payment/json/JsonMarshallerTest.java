@@ -46,8 +46,8 @@ public class JsonMarshallerTest {
 		expected.append(",");
 		expected.append("\"amount_BIT\":0.01");
 		expected.append(",");
-		expected.append("\"pay_type\":\"aPayType\"");
-		expected.append(",");
+//		expected.append("\"pay_type\":\"aPayType\"");
+//		expected.append(",");
 		expected.append("\"timestamp\":");
 		expected.append(request.getTimestamp());
 		expected.append("}}");

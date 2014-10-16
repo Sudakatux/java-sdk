@@ -23,9 +23,10 @@ public class JsonMarshaller {
 		json.append(buttonRequest.getPayObjectId());
 		json.append("\",\"amount_BIT\":");
 		json.append(buttonRequest.getAmountBIT());
-		json.append(",\"pay_type\":\"");
-		json.append(buttonRequest.getPayType());
-		json.append("\",\"timestamp\":");
+//		json.append(",\"pay_type\":\"");
+//		json.append(buttonRequest.getPayType());
+//		json.append("\"");
+		json.append(",\"timestamp\":");
 		json.append(buttonRequest.getTimestamp());
 		json.append("}}");
 

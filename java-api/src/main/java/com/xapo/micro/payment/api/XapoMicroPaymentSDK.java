@@ -78,12 +78,16 @@ public class XapoMicroPaymentSDK {
 
 
 		URI widgetUrl = createURI(query.toString());
-		return widgetUrl.toString();
+		String widgetStr = widgetUrl.toString();
+		
+		// fix : encode
+		return widgetStr.replace("button_text%22:%22", "button_text%22%3A+%22");
 
 	}
 
 	protected URI createURI(String query) {
 		try {
+			
 			return new URI(serviceParameters.getScheme(), null /*userInfo*/,
 					serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query, null /* fragment */);
 		

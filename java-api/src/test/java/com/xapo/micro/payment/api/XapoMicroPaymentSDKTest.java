@@ -2,8 +2,6 @@ package com.xapo.micro.payment.api;
 
 import static org.junit.Assert.*;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +24,7 @@ public class XapoMicroPaymentSDKTest {
 
 		request = new ButtonRequest();
 		// TODO amountBIT = String  BigDecimal Decimal ??
-		request.setAmountBIT("0");
+		request.setAmountBIT("0.01");
 		request.setPayObjectId("aPayObjectId");
 		request.setReceiverUserEmail("receiver@email.com");
 		request.setReceiverUserId("receiverUserId");
@@ -44,18 +42,16 @@ public class XapoMicroPaymentSDKTest {
 
 		String div = xapoMicroPaymentSDK.buildDivWidget(request);
 
-		//TODO fail("Verificar si esta bien el Div");
-		System.err.println("Verificar si esta bien el Div");
-		System.err.println(div);
+		System.out.println("Got:");
+		System.out.println(div);
 	}
 
 	@Test
 	public void testBuildIframeWidget() {
 		String iframe = xapoMicroPaymentSDK.buildIframeWidget(request);
 		
-		//TODO fail("Verificar si esta bien el IFrame");
-		System.err.println("Verificar si esta bien el IFrame");
-		System.err.println(iframe);
+		System.out.println("Got:");
+		System.out.println(iframe);
 	}
 
 	@Test
@@ -68,17 +64,14 @@ public class XapoMicroPaymentSDKTest {
 	@Test
 	public void testBuildWidgetUrl() {
 	String url = 	xapoMicroPaymentSDK.buildWidgetUrl(request);
-//	System.out.println(url);
-
-	String colonStrPython = "%3A+";
-	String colonStrJava = ":";
-	System.err.println("verificar el encoding de :");
 	
+	System.out.println("Got:");
+	System.out.println(url);	
 	
-	String expectedStartURL =  XAPO_URL+"?customization=%7B%22button_text%22"+colonStrJava+"%22"+PAY_TYPE+"%22%7D&app_id="+APP_ID+"&button_request=";
+	String expectedStartURL =  XAPO_URL+"?customization=%7B%22button_text%22%3A+%22"+PAY_TYPE+"%22%7D&app_id="+APP_ID+"&button_request=";
 	String urlStart = url.substring(0, expectedStartURL.length());
 	assertEquals("URL start substring", expectedStartURL, urlStart);
-	// the encrypted json is in the tail of this URL 
+	assertFalse("request must be encrypted", url.contains("amount_BIT"));
 	
 	}
 
