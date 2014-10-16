@@ -9,30 +9,29 @@ import com.xapo.micro.payment.json.JsonMarshaller;
 
 public class XapoMicroPaymentSDK {
 
-	private String serviceScheme;
-	private String serviceHost;
+	private ServiceParameters serviceParameters;
 	private String appID;
 	private String appSecret;
 	private JsonMarshaller jsonMarshaller = new JsonMarshaller();
+	private AESencrypt aesEncrypt = new AESencrypt();
 
 	/**
 	 * Constructor
 	 * 
-	 * @param serviceProtocol
-	 *            The service protocol (http or https)
-	 * @param serviceHost
-	 *            The service host e.g. xapo.com
+	 * @param serviceURL
+	 *            The service URL. e.g.
+	 *            "http://dev.xapo.com:8089/pay_button/show"
 	 * @param appID
 	 *            The ID of the application that uses this SDK
 	 * @param appSecret
-	 *            the encryption secret key of the application that uses this SDK
+	 *            the encryption secret key of the application that uses this
+	 *            SDK
 	 */
-	public XapoMicroPaymentSDK(String serviceProtocol, String serviceHost,
-			String appID, String appSecret) {
+	public XapoMicroPaymentSDK(String serviceURL, String appID, String appSecret) {
+
 		this.appID = appID;
 		this.appSecret = appSecret;
-		this.serviceScheme = serviceProtocol;
-		this.serviceHost = serviceHost;
+		this.serviceParameters = new ServiceParameters(serviceURL);
 
 	}
 
@@ -45,7 +44,7 @@ public class XapoMicroPaymentSDK {
 	 */
 	protected String encrypt(String data) {
 		try {
-			return AESencrypt.encrypt(appSecret.getBytes(), data);
+			return aesEncrypt.encrypt(appSecret, data);
 		} catch (Exception e) {
 			throw new RuntimeException("Can't encrypt the data", e);
 
@@ -65,7 +64,7 @@ public class XapoMicroPaymentSDK {
 		String buttonRequestEnc = encrypt(buttonRequestJson);
 
 		StringBuilder query = new StringBuilder();
-		query.append("/app_id=");
+		query.append("app_id=");
 		query.append(appID);
 		query.append("&");
 
@@ -77,13 +76,21 @@ public class XapoMicroPaymentSDK {
 		query.append(request.getPayType());
 		query.append("}");
 
+		URI widgetUrl = createURI(query.toString());
+		return widgetUrl.toString();
+
+	}
+
+	protected URI createURI(String query) {
 		try {
-			URI widgetUrl = new URI(serviceScheme, serviceHost,
-					query.toString(), null);
-			return widgetUrl.toString();
+
+			return new URI(serviceParameters.getScheme(), null /*userInfo*/,
+					serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query, null /* fragment */);
+		
 		} catch (URISyntaxException e) {
 			throw new RuntimeException("Can't create URL", e);
 		}
+
 	}
 
 	/**
