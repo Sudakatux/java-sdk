@@ -2,15 +2,15 @@ package com.xapo.micro.payment.api.model;
 
 public class ButtonRequest {
 
-	private String senderUserId;
-	private String senderUserEmail;
-	private String senderUserCellphone;
-	private String receiverUserId;
-	private String receiverUserEmail;
-	private String payObjectId;
+	private String senderUserId="";
+	private String senderUserEmail="";
+	private String senderUserCellphone="";
+	private String receiverUserId="";
+	private String receiverUserEmail="";
+	private String payObjectId="";
 	// TODO amountBIT = String BigDecimal Decimal ??
-	private String amountBIT;
-	private String payType;
+	private String amountBIT="";
+	private String payType="";
 	private long timestamp = System.currentTimeMillis();
 
 	public String getSenderUserId() {
@@ -87,4 +87,5 @@ public class ButtonRequest {
 		return timestamp;
 	}
 
+	
 }

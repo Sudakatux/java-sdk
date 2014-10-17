@@ -134,7 +134,7 @@ public class XapoMicroPaymentSDK {
 		res.append("<iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden; height:22px;' allowTransparency='true' src='");
 
 		res.append(widgetUrl);
-		res.append("></iframe>");
+		res.append("'></iframe>");
 		return res.toString();
 	}
 

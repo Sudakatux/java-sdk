@@ -8,7 +8,8 @@ public class JsonMarshaller {
 
 		StringBuilder json = new StringBuilder();
 
-		json.append("{\"request\":{");
+		//json.append("{\"request\":{");
+		json.append("{");
 		json.append("\"sender_user_id\":\"");
 		json.append(buttonRequest.getSenderUserId());
 		json.append("\",\"sender_user_email\":\"");
@@ -28,7 +29,8 @@ public class JsonMarshaller {
 //		json.append("\"");
 		json.append(",\"timestamp\":");
 		json.append(buttonRequest.getTimestamp());
-		json.append("}}");
+		json.append("}");
+//		json.append("}");
 
 		return json.toString();
 	}

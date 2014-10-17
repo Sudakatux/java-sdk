@@ -31,8 +31,9 @@ public class JsonMarshallerTest {
 		String json = jsonMarshaller.getJson(request);
 		
 		StringBuilder expected = new StringBuilder();
-		expected.append("{\"request\":{");
-		expected.append("\"sender_user_id\":\"aSenderId\"");
+//		expected.append("{\"request\":");
+	
+		expected.append("{\"sender_user_id\":\"aSenderId\"");
 		expected.append(",");
 		expected.append("\"sender_user_email\":\"sender@email.com\"");
 		expected.append(",");
@@ -50,7 +51,8 @@ public class JsonMarshallerTest {
 //		expected.append(",");
 		expected.append("\"timestamp\":");
 		expected.append(request.getTimestamp());
-		expected.append("}}");
+		expected.append("}");
+//		expected.append("}");
 		
 		assertEquals(expected.toString(), json);
 		
