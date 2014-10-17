@@ -9,7 +9,8 @@ import com.xapo.micro.payment.api.model.ButtonRequest;
 
 public class XapoMicroPaymentSDKTest {
 
-	private static final String PAY_TYPE = "Donate";
+	// pay type: "Tip", "Pay", "Deposit" o "Donate"
+	private static final String PAY_TYPE = ButtonRequest.PAY_TYPE_DONATE;
 	private static final String APP_ID = "c9f2e90b018639fa";
 	private static final String APP_SECRET = "bc4e142dc053407b0028accffc289c18";
 	private static final String XAPO_URL = "http://dev.xapo.com:8089/pay_button/show";
@@ -24,15 +25,15 @@ public class XapoMicroPaymentSDKTest {
 
 		request = new ButtonRequest();
 		// TODO amountBIT = String  BigDecimal Decimal ??
+		
 		request.setAmountBIT("0.01");
-		request.setPayObjectId("aPayObjectId");
-		request.setReceiverUserEmail("receiver@email.com");
-		request.setReceiverUserId("receiverUserId");
-		request.setSenderUserCellphone("123456789");
-		request.setSenderUserEmail("sender@email.com");
-		request.setSenderUserId("aSenderId");
+		request.setPayObjectId("to0210");
+		request.setReceiverUserEmail("fernando.taboada@xapo.com");
+		request.setReceiverUserId("r0210");
+		request.setSenderUserCellphone("+5491112341234");
+		request.setSenderUserEmail("sender@xapo.com");
+		request.setSenderUserId("");
 
-		// pay type: "Tip", "Pay", "Deposit" o "Donate"
 		request.setPayType(PAY_TYPE);
 		
 	}

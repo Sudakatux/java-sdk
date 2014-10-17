@@ -2,16 +2,21 @@ package com.xapo.micro.payment.api.model;
 
 public class ButtonRequest {
 
-	private String senderUserId="";
-	private String senderUserEmail="";
-	private String senderUserCellphone="";
-	private String receiverUserId="";
-	private String receiverUserEmail="";
-	private String payObjectId="";
+	public static final String PAY_TYPE_TIP = "Tip";
+	public static final String PAY_TYPE_PAY = "Pay";
+	public static final String PAY_TYPE_DEPOSIT = "Deposit";
+	public static final String PAY_TYPE_DONATE = "Donate";
+
+	private String senderUserId = "";
+	private String senderUserEmail = "";
+	private String senderUserCellphone = "";
+	private String receiverUserId = "";
+	private String receiverUserEmail = "";
+	private String payObjectId = "";
 	// TODO amountBIT = String BigDecimal Decimal ??
-	private String amountBIT="";
-	private String payType="";
-	private long timestamp = System.currentTimeMillis();
+	private String amountBIT = "";
+	// donate by default
+	private String payType = PAY_TYPE_DONATE;
 
 	public String getSenderUserId() {
 		return senderUserId;
@@ -83,9 +88,4 @@ public class ButtonRequest {
 		this.payType = payType;
 	}
 
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	
 }

@@ -59,8 +59,9 @@ public class XapoMicroPaymentSDK {
 	 * @return the URL to send the request data
 	 */
 	protected String buildWidgetUrl(ButtonRequest request) {
-
-		String buttonRequestJson = jsonMarshaller.getJson(request);
+		
+		long timestamp = System.currentTimeMillis();
+		String buttonRequestJson = jsonMarshaller.getJson(request, timestamp);
 		String buttonRequestEnc = encrypt(buttonRequestJson);
 
 		StringBuilder query = new StringBuilder();

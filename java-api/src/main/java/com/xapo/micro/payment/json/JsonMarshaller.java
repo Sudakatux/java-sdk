@@ -4,7 +4,7 @@ import com.xapo.micro.payment.api.model.ButtonRequest;
 
 public class JsonMarshaller {
 
-	public String getJson(ButtonRequest buttonRequest) {
+	public String getJson(ButtonRequest buttonRequest, long timestamp) {
 
 		StringBuilder json = new StringBuilder();
 
@@ -28,7 +28,7 @@ public class JsonMarshaller {
 //		json.append(buttonRequest.getPayType());
 //		json.append("\"");
 		json.append(",\"timestamp\":");
-		json.append(buttonRequest.getTimestamp());
+		json.append(timestamp);
 		json.append("}");
 //		json.append("}");
 
