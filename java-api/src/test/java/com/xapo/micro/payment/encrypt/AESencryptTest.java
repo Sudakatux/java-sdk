@@ -6,32 +6,22 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.security.Security;
+
 public class AESencryptTest {
 
-	private AESencrypt aesEncrypt;
-	private static String APP_SECRET = "bc4e142dc053407b0028accffc289c18";
+	private MCrypt aesEncrypt;
+	private static String APP_SECRET = "c533a6e606fb62ccb13e8baf8a95cbdc";
 
 	@Before
 	public void setUp() throws Exception {
-		aesEncrypt = new AESencrypt(); 
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+		aesEncrypt = new MCrypt(); 
 	}
 	
- 
 	@Test
-	public void testEncryptBytArray() throws Exception {
-		 byte[] keyValue = new byte[] { 'T', 'h', 'e', 'B', 'e', 's', 't','S', 'e', 'c', 'r','e', 't', 'K', 'e', 'y' };
-		String textToEncrypt = "This text is not encrypted";
-
-		String	encryptedText = aesEncrypt.encrypt(keyValue, textToEncrypt);
-		assertNotEquals("encrypted text must be different that orignal text ",textToEncrypt, encryptedText);
-		
-		String decryptedText = aesEncrypt.decrypt(keyValue, encryptedText);
-		assertEquals("decripted text must be equals to the original one",textToEncrypt, decryptedText);	
-	}
-
-	
-	@Test
-	public void testEncryptAppSecret() throws Exception {
+	@Ignore
+	public void testEncryptDecrypt() throws Exception {
 		String textToEncrypt = "This text is not encrypted";
 
 		String	encryptedText = aesEncrypt.encrypt(APP_SECRET, textToEncrypt);
@@ -43,13 +33,20 @@ public class AESencryptTest {
 	
 	
 	@Test
-	@Ignore("No encrypta de la misma forma que el PHP")
-	public void testEncryptAppSecretRdequest() throws Exception {
-		String request = "{\"amount_BIT\": 0.01, \"sender_user_cellphone\": \"+5491112341234\", \"receiver_user_email\": \"fernando.taboada@xapo.com\", \"pay_object_id\": \"to0210\", \"sender_user_id\": \"\", \"receiver_user_id\": \"r0210\", \"timestamp\": 1413494551587, \"sender_user_email\": \"sender@xapo.com\"}";
-		String expedtedEncryptedRequest = "Ji%2F9T5w8UAou0Qo4vPIn39OmOKBds5rkezFHi8Z788JJwDo339g%2FvbJqZHcSIPcbmDoFm3eGFq4PtnEpRgSLTy4fDWdJz7s8pUi%2FEaI6QEyCdYkaT9siN3S7XXhCJyhetGQwr1cK6GmbKzuVlpV29TvqvNuQfegzUFMLb02qm5QOhFV13vIN1T1%2FpH81KzqFDIYuuY8Xm%2FI%2FLj4aC9R13hoZD9t0T13LgPGFn9%2FX7D7G2mrgjYINBQkEJxbJrCLiXe6wbOsu9udS%2BmX4WEBOVkOojl7WVScNTv91c8yQgd6t96esp3SpGSXRg7mWQzG%2BEsIWpc%2BP%2BQz1sFmnUXMNNVKHwGaqPhNNXjdGCHVxqow";
+	public void testEncryptJson() throws Exception {
+		String request = "{\"sender_user_id\":\"\",\"sender_user_email\":\"sender@xapo.com\",\"sender_user_cellphone\":\"+5491112341234\",\"receiver_user_id\":\"r0210\",\"receiver_user_email\":\"fernando.taboada@xapo.com\",\"pay_object_id\":\"to0210\",\"amount_BIT\":0.01,\"timestamp\":1413908141835}";
+		String expedtedEncryptedRequest = "C/6OaxS0rh3jMhH90kRYyp3y+U5ADcCgMLCyz2P5ssGngf3AjyMMaE548XpQ7sdFcJvpShTGq2QlsaUgakMzoA1aHLITCfNMGTQAkTrD6Ga31BWQbgJ8/alHfaMyBnbLXalaTOSM2zGmHHhn0ku9pxCfWQ3kCPqkurDTYazQLmfYRVYFHe7W326sA9+2pNSb5OPWtt39ZmSTkol+wtJYjyO0fiJlvEyXVdzEVms0JPdFl8ks+aDCLBme7XQyJ8ExUkFaKGA67Q7zukT3clUXYGFMpwAH8N5Ep/G8dm6oU34ECygnziA23Fm+VzSyaElv3v8lQ5WLCAgvkYGN4EfOTQ==";
 
 		String	encryptedReq = aesEncrypt.encrypt(APP_SECRET, request);
 		assertEquals("encrypted request ", expedtedEncryptedRequest, encryptedReq);
-	}	
+	}
 
+	@Test
+	public void testEncryptHello() throws Exception {
+		String textToEncrypt = "hello from aes encryption!";
+
+		String encryptedText = aesEncrypt.encrypt(APP_SECRET, textToEncrypt);
+		String expected = "Jr/PhEWZBiqW/iMnoObyPm5M4azsUYLwLxk50Wi9eoo=";
+		assertEquals("encrypted text must be equals ", expected, encryptedText);
+	}
 }

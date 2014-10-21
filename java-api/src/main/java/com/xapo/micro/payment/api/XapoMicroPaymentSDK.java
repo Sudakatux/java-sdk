@@ -2,9 +2,11 @@ package com.xapo.micro.payment.api;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 import com.xapo.micro.payment.api.model.ButtonRequest;
-import com.xapo.micro.payment.encrypt.AESencrypt;
+import com.xapo.micro.payment.encrypt.MCrypt;
 import com.xapo.micro.payment.json.JsonMarshaller;
 
 public class XapoMicroPaymentSDK {
@@ -13,7 +15,7 @@ public class XapoMicroPaymentSDK {
 	private String appID;
 	private String appSecret;
 	private JsonMarshaller jsonMarshaller = new JsonMarshaller();
-	private AESencrypt aesEncrypt = new AESencrypt();
+	private MCrypt aesEncrypt = new MCrypt();
 
 	/**
 	 * Constructor
@@ -63,6 +65,8 @@ public class XapoMicroPaymentSDK {
 		long timestamp = System.currentTimeMillis();
 		String buttonRequestJson = jsonMarshaller.getJson(request, timestamp);
 		String buttonRequestEnc = encrypt(buttonRequestJson);
+		URI widgetUrl = null;
+		String widgetStr = "";
 
 		StringBuilder query = new StringBuilder();
 		query.append("customization={\"button_text\":\"");
@@ -75,24 +79,34 @@ public class XapoMicroPaymentSDK {
 
 		query.append("&");
 		query.append("button_request=");
+		buttonRequestEnc = buttonRequestEnc.replace("=", "%3D");
 		query.append(buttonRequestEnc);
 
+		String queryStr = query.toString();
 
-		URI widgetUrl = createURI(query.toString());
-		String widgetStr = widgetUrl.toString();
-		
+		queryStr = queryStr.replace("/", "%2F");
+		queryStr = queryStr.replace("\"", "%22");
+		queryStr = queryStr.replace("{", "%7B");
+		queryStr = queryStr.replace("}", "%7D");
+		queryStr = queryStr.replace(" ", "%20");
+		queryStr = queryStr.replace("+", "%2B");
+		queryStr = queryStr.replace(":", "%3A");
+		queryStr = queryStr.replace("\n", "%0A");
+
+		widgetStr = serviceParameters.getScheme() + "://" + 
+						serviceParameters.getHost() + ":" + serviceParameters.getPort() +
+						serviceParameters.getPath() + "?" + queryStr;
+
 		// fix : encode
-		return widgetStr.replace("button_text%22:%22", "button_text%22%3A+%22");
-
+		return widgetStr;
 	}
 
 	protected URI createURI(String query) {
 		try {
-			
 			return new URI(serviceParameters.getScheme(), null /*userInfo*/,
 					serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query, null /* fragment */);
 		
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
 			throw new RuntimeException("Can't create URL", e);
 		}
 
