@@ -36,7 +36,7 @@ public class MCrypt {
 
     public String encrypt(String secretKey, String text) throws Exception
     {
-    	SecretKeySpec keyspec = new SecretKeySpec(secretKey.getBytes(), "AES");
+    	SecretKeySpec keyspec = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
 
         if(text == null || text.length() == 0)
             throw new Exception("Empty string");
@@ -46,7 +46,7 @@ public class MCrypt {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, keyspec);
 
-            encrypted = cipher.doFinal(padString(text).getBytes());
+            encrypted = cipher.doFinal(padString(text).getBytes("UTF-8"));
         } catch (Exception e)
         {            
         	e.printStackTrace();           

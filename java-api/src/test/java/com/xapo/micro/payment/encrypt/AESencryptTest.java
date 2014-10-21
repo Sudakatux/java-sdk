@@ -7,6 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.security.Security;
+import javax.crypto.Cipher;
 
 public class AESencryptTest {
 
@@ -44,6 +45,10 @@ public class AESencryptTest {
 	@Test
 	public void testEncryptHello() throws Exception {
 		String textToEncrypt = "hello from aes encryption!";
+
+		System.out.println("********************************");
+		System.out.println(Cipher.getMaxAllowedKeyLength("AES"));
+		System.out.println("********************************");
 
 		String encryptedText = aesEncrypt.encrypt(APP_SECRET, textToEncrypt);
 		String expected = "Jr/PhEWZBiqW/iMnoObyPm5M4azsUYLwLxk50Wi9eoo=";
