@@ -120,6 +120,9 @@ $(document).ready(function() {$('#tipButtonDiv').load('http://dev.xapo.com:8089/
 and the resulting widget:
 
 ![payment button](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/donate_button.png)
+
 ![payment phone](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment1.png)
+
 ![payment email](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment2.png)
+
 ![payment pin](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment3.png)
