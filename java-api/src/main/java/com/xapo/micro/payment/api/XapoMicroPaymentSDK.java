@@ -122,14 +122,14 @@ public class XapoMicroPaymentSDK {
 	public String buildDivWidget(ButtonRequest buttonRequest) {
 		String widgetUrl = buildWidgetUrl(buttonRequest);
 		StringBuffer res = new StringBuffer();
-		res.append("<div id='tipButtonDiv' class='tipButtonDiv'></div>");
-		res.append("<div id='tipButtonPopup' class='tipButtonPopup'></div>");
-		res.append("<script>");
+		res.append("<div id='tipButtonDiv' class='tipButtonDiv'></div>\n");
+		res.append("<div id='tipButtonPopup' class='tipButtonPopup'></div>\n");
+		res.append("<script>\n");
 		res.append("$(document).ready(function() {");
 		res.append("$('#tipButtonDiv').load('");
 		res.append(widgetUrl);
 		res.append("');");
-		res.append("});");
+		res.append("});\n");
 		res.append("</script>");
 
 		return res.toString();

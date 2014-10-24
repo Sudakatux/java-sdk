@@ -29,10 +29,10 @@ public class XapoMicroPaymentSDKTest {
 		
 		request.setAmountBIT("0.01");
 		request.setPayObjectId("to0210");
-		request.setReceiverUserEmail("fernando.taboada@xapo.com");
+		request.setReceiverUserEmail("jhon.doe@leapsight.com");
 		request.setReceiverUserId("r0210");
 		request.setSenderUserCellphone("+5491112341234");
-		request.setSenderUserEmail("sender@xapo.com");
+		request.setSenderUserEmail("jane.doe@xapo.com");
 		request.setSenderUserId("");
 	}
 
