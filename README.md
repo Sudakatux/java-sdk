@@ -73,8 +73,11 @@ With this you get the following snippet:
 and the resulting widget:
 
 ![payment button](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/donate_button.png)
+
 ![payment phone](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment1.png)
+
 ![payment email](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment2.png)
+
 ![payment pin](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment3.png)
 
 ### Div Widget
