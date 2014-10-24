@@ -77,8 +77,8 @@ With this you get the following snippet:
 
 and the resulting widget:
 
-![payment button](https://bytebucket.org/leapsight/xapo.java-sdk/raw/6798027fd119d4cc3c6b13b17cdcebca745fdc6a/img/payment_button.png?token=28f9726107ab38f3d310cad46b8d4a5676b5db7a)
-![payment frame](https://bitbucket.org/leapsight/xapo.java-sdk/src/d2151c2179bacef64e0ab0fd5f09daff3df72dbb/img/payment_frame.png?at=master)
+![payment button](raw/master/img/payment_button.png)
+![payment frame](raw/master/img/payment_frame.png)
 
 ### Div Widget
 ```Java
@@ -119,5 +119,5 @@ $(document).ready(function() {$('#tipButtonDiv').load('http://dev.xapo.com:8089/
 
 and the resulting widget:
 
-![payment button](img/payment_button.png)
-![payment div](img/payment_frame    .png)
+![payment button](raw/master/img/payment_button.png)
+![payment div](raw/master/img/payment_frame.png)
