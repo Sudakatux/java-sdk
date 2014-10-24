@@ -1,21 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [README](#markdown-header-readme)
+  - [Notes:](#markdown-header-notes)
+  - [Build](#markdown-header-build)
+  - [Micro Payment Widgets](#markdown-header-micro-payment-widgets)
+    - [IFrame Widget](#markdown-header-iframe-widget)
+    - [Div Widget](#markdown-header-div-widget)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # README
 >This is the Java version of the Xapo's Widget Tools. These tools allow you to easily embedded the tools like Micro Payment iFrames/DIVs, Tipping Buttons and other kind of widgets into your application using your language of choice. In this way, tedious details like encryption and html snippet generation is handle for you in a simple and transparent way.   
 
 <hr>
 
 [Changelog](CHANGELOG.md)
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of Contents
-
-- [Notes:](#notes)
-- [Build](#build)
-- [Micro Payment Widgets](#micro-payment-widgets)
-  - [IFrame Widget](#iframe-widget)
-  - [Div Widget](#div-widget)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Notes:
 
