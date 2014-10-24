@@ -1,30 +1,25 @@
-package com.xapo.micro.payment.api;
+package com.xapo.tools.widgets;
 
-import static org.junit.Assert.*;
-
+import com.xapo.utils.json.JsonMarshaller;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 
-import com.xapo.micro.payment.api.model.ButtonRequest;
-import com.xapo.micro.payment.json.JsonMarshaller;
-
-public class XapoMicroPaymentSDKTest {
+public class MicroPaymentTest {
 
 	// pay type: "Tip", "Pay", "Deposit" o "Donate"
 	private static final String APP_ID = "b91014cc28c94841";
 	private static final String APP_SECRET = "c533a6e606fb62ccb13e8baf8a95cbdc";
 	private static final String XAPO_URL = "http://dev.xapo.com:8089/pay_button/show";
-	private XapoMicroPaymentSDK xapoMicroPaymentSDK;
-	private ButtonRequest request;
+	private MicroPayment xapoMicroPaymentSDK;
+	private MicroPaymentConfig request;
 
 	@Before
 	public void setUp() throws Exception {
 		
-		xapoMicroPaymentSDK = new XapoMicroPaymentSDK(XAPO_URL,
+		xapoMicroPaymentSDK = new MicroPayment(XAPO_URL,
 				APP_ID, APP_SECRET);
 
-		request = new ButtonRequest();
+		request = new MicroPaymentConfig();
 		// TODO amountBIT = String  BigDecimal Decimal ??
 		
 		request.setAmountBIT("0.01");
@@ -38,7 +33,7 @@ public class XapoMicroPaymentSDKTest {
 
 	@Test
 	public void testBuildDivWidget() {
-		request.setPayType(ButtonRequest.PAY_TYPE_DONATE);
+		request.setPayType(MicroPaymentConfig.PAY_TYPE_DONATE);
 		String div = xapoMicroPaymentSDK.buildDivWidget(request);
 
 		System.out.println((new JsonMarshaller()).getJson(request, System.currentTimeMillis()));
@@ -48,7 +43,7 @@ public class XapoMicroPaymentSDKTest {
 
 	@Test
 	public void testBuildIframeWidget() {
-		request.setPayType(ButtonRequest.PAY_TYPE_TIP);
+		request.setPayType(MicroPaymentConfig.PAY_TYPE_TIP);
 		String iframe = xapoMicroPaymentSDK.buildIframeWidget(request);
 
 		System.out.println((new JsonMarshaller()).getJson(request, System.currentTimeMillis()));		

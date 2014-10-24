@@ -1,4 +1,4 @@
-package com.xapo.micro.payment.encrypt;
+package com.xapo.utils.encrypt;
 
 import java.security.Security;
 import java.security.NoSuchAlgorithmException;
@@ -112,7 +112,7 @@ public class MCrypt {
         } else {
             int len = str.length() / 2;
             byte[] buffer = new byte[len];
-            
+
             for (int i=0; i<len; i++) {
                     buffer[i] = (byte) Integer.parseInt(str.substring(i*2,i*2+2),16);
             }

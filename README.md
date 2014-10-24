@@ -7,13 +7,14 @@
 
 # Table of Contents
 
-- [Notes:](#notes)
+- [Notes](#notes)
 - [Build](#build)
 - [Micro Payment Widgets](#micro-payment-widgets)
   - [IFrame Widget](#iframe-widget)
   - [Div Widget](#div-widget)
+  - [Widgets Gallery](#widgets-gallery)
 
-## Notes:
+## Notes
 
 The Micro Payment Java Widgets requires Java 1.6+. Since Xapo uses 256 bit encryption keys you may need to download and install the _Java Cryptographic Extensions_ depending to your Java version:
 
@@ -30,8 +31,9 @@ To build the library you need to include in your code do:
 # build the lib without deps
 mvn package
 
-# build the lib with the deps bundled
-mvn package-with-deps 
+# it generates 2 jars: 
+#   - xapo-api.jar
+#   - xapo-api-jar-with-dependencies.jar (bundled with dependencies)
 ```
 
 ## Micro Payment Widgets
@@ -70,15 +72,7 @@ With this you get the following snippet:
 <iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden; height:22px;' allowTransparency='true' src='http://dev.xapo.com:8089/pay_button/show?customization=%7B%22button_text%22%3A%22Tip%22%7D&app_id=b91014cc28c94841&button_request=C%2F6OaxS0rh3jMhH90kRYyp3y%2BU5ADcCgMLCyz2P5ssFG%2FJoGf55ccvicyRMuIXpU5xhDeHGffpZAvVeMCpJhGFyIPwLFh%2FVdnjnDUjYgJCQeB4mCpGsEW5SC6wNvg69ksgeAtr108Wc5miA8H4JG99EWTTlC7WtIGg5rFKkbjrop15fSJfhv5cTs02jSC5f2BaLlh1mKh5hSPW3HGcWcl%2BdyZj%2F9m1lPB4gKfky2%2FnT0tYjbEFo5aU6WtowWrf2xE8OYejyI0poEFkClBkv2eDkp4Gel4tGb%2Bkwszcyb18ztK89RlBwhe8sX4HeM2KJM8ZaWuDOGH2VW4kbThMCZEw%3D%3D'></iframe>
 ```
 
-and the resulting widget:
-
-![payment button](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/donate_button.png)
-
-![payment phone](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment1.png)
-
-![payment email](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment2.png)
-
-![payment pin](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/mpayment3.png)
+See the results in the [widgets gallery](#widgets-gallery).
 
 ### Div Widget
 ```java
@@ -117,7 +111,9 @@ $(document).ready(function() {$('#tipButtonDiv').load('http://dev.xapo.com:8089/
 </script>
 ```
 
-and the resulting widget:
+See the results in the [widgets gallery](#widgets-gallery).
+
+### Widgets Gallery
 
 ![payment button](https://bitbucket.org/leapsight/xapo.java-sdk/raw/master/img/donate_button.png)
 

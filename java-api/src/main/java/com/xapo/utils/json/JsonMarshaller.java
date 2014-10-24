@@ -1,29 +1,29 @@
-package com.xapo.micro.payment.json;
+package com.xapo.utils.json;
 
-import com.xapo.micro.payment.api.model.ButtonRequest;
+import com.xapo.tools.widgets.MicroPaymentConfig;
 
 public class JsonMarshaller {
 
-	public String getJson(ButtonRequest buttonRequest, long timestamp) {
+	public String getJson(MicroPaymentConfig microPaymentConfig, long timestamp) {
 
 		StringBuilder json = new StringBuilder();
 
 		//json.append("{\"request\":{");
 		json.append("{");
 		json.append("\"sender_user_id\":\"");
-		json.append(buttonRequest.getSenderUserId());
+		json.append(microPaymentConfig.getSenderUserId());
 		json.append("\",\"sender_user_email\":\"");
-		json.append(buttonRequest.getSenderUserEmail());
+		json.append(microPaymentConfig.getSenderUserEmail());
 		json.append("\",\"sender_user_cellphone\":\"");
-		json.append(buttonRequest.getSenderUserCellphone());
+		json.append(microPaymentConfig.getSenderUserCellphone());
 		json.append("\",\"receiver_user_id\":\"");
-		json.append(buttonRequest.getReceiverUserId());
+		json.append(microPaymentConfig.getReceiverUserId());
 		json.append("\",\"receiver_user_email\":\"");
-		json.append(buttonRequest.getReceiverUserEmail());
+		json.append(microPaymentConfig.getReceiverUserEmail());
 		json.append("\",\"pay_object_id\":\"");
-		json.append(buttonRequest.getPayObjectId());
+		json.append(microPaymentConfig.getPayObjectId());
 		json.append("\",\"amount_BIT\":");
-		json.append(buttonRequest.getAmountBIT());
+		json.append(microPaymentConfig.getAmountBIT());
 //		json.append(",\"pay_type\":\"");
 //		json.append(buttonRequest.getPayType());
 //		json.append("\"");

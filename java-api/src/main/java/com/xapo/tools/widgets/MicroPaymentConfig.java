@@ -1,6 +1,6 @@
-package com.xapo.micro.payment.api.model;
+package com.xapo.tools.widgets;
 
-public class ButtonRequest {
+public class MicroPaymentConfig {
 
 	public static final String PAY_TYPE_TIP = "Tip";
 	public static final String PAY_TYPE_PAY = "Pay";

@@ -1,8 +1,8 @@
-package com.xapo.micro.payment.api;
+package com.xapo.tools.widgets;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import com.xapo.tools.widgets.ServiceParameters;
 import org.junit.Test;
 
 public class ServiceParametersTest {

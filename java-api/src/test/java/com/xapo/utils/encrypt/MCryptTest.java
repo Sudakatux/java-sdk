@@ -1,15 +1,15 @@
-package com.xapo.micro.payment.encrypt;
-
-import static org.junit.Assert.*;
+package com.xapo.utils.encrypt;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.security.Security;
-import javax.crypto.Cipher;
 
-public class AESencryptTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+public class MCryptTest {
 
 	private MCrypt aesEncrypt;
 	private static String APP_SECRET = "c533a6e606fb62ccb13e8baf8a95cbdc";
@@ -45,10 +45,6 @@ public class AESencryptTest {
 	@Test
 	public void testEncryptHello() throws Exception {
 		String textToEncrypt = "hello from aes encryption!";
-
-		System.out.println("********************************");
-		System.out.println(Cipher.getMaxAllowedKeyLength("AES"));
-		System.out.println("********************************");
 
 		String encryptedText = aesEncrypt.encrypt(APP_SECRET, textToEncrypt);
 		String expected = "Jr/PhEWZBiqW/iMnoObyPm5M4azsUYLwLxk50Wi9eoo=";

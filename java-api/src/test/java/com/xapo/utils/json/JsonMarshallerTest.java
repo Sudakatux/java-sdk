@@ -1,11 +1,10 @@
-package com.xapo.micro.payment.json;
+package com.xapo.utils.json;
 
-import static org.junit.Assert.*;
-
+import com.xapo.tools.widgets.MicroPaymentConfig;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.xapo.micro.payment.api.model.ButtonRequest;
+import static org.junit.Assert.assertEquals;
 
 public class JsonMarshallerTest {
 
@@ -17,11 +16,11 @@ public class JsonMarshallerTest {
 
 	@Test
 	public void testGetJson() {
-		ButtonRequest request= new ButtonRequest();
+		MicroPaymentConfig request= new MicroPaymentConfig();
 	
 		request.setAmountBIT("0.01");
 		request.setPayObjectId("to0210");
-		request.setPayType(ButtonRequest.PAY_TYPE_DONATE);
+		request.setPayType(MicroPaymentConfig.PAY_TYPE_DONATE);
 		request.setReceiverUserEmail("fernando.taboada@xapo.com");
 		request.setReceiverUserId("r0210");
 		request.setSenderUserCellphone("+5491112341234");
@@ -32,7 +31,6 @@ public class JsonMarshallerTest {
 		String json = jsonMarshaller.getJson(request, timestamp);
 		
 		StringBuilder expected = new StringBuilder();
-//		expected.append("{\"request\":");
 	
 		expected.append("{\"sender_user_id\":\""+request.getSenderUserId()+"\"");
 		expected.append(",");
@@ -48,15 +46,11 @@ public class JsonMarshallerTest {
 		expected.append(",");
 		expected.append("\"amount_BIT\":"+request.getAmountBIT()+"");
 		expected.append(",");
-//		expected.append("\"pay_type\":\"aPayType\"");
-//		expected.append(",");
 		expected.append("\"timestamp\":");
 		expected.append(timestamp);
 		expected.append("}");
-//		expected.append("}");
-		
+
 		assertEquals(expected.toString(), json);
-		
 	}
 
 }

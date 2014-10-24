@@ -1,4 +1,4 @@
-package com.xapo.micro.payment.api;
+package com.xapo.tools.widgets;
 
 public class ServiceParameters {
 

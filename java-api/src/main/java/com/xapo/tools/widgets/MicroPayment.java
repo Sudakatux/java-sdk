@@ -1,15 +1,11 @@
-package com.xapo.micro.payment.api;
+package com.xapo.tools.widgets;
+
+import com.xapo.utils.encrypt.MCrypt;
+import com.xapo.utils.json.JsonMarshaller;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
 
-import com.xapo.micro.payment.api.model.ButtonRequest;
-import com.xapo.micro.payment.encrypt.MCrypt;
-import com.xapo.micro.payment.json.JsonMarshaller;
-
-public class XapoMicroPaymentSDK {
+public class MicroPayment {
 
 	private ServiceParameters serviceParameters;
 	private String appID;
@@ -29,7 +25,7 @@ public class XapoMicroPaymentSDK {
 	 *            the encryption secret key of the application that uses this
 	 *            SDK
 	 */
-	public XapoMicroPaymentSDK(String serviceURL, String appID, String appSecret) {
+	public MicroPayment(String serviceURL, String appID, String appSecret) {
 
 		this.appID = appID;
 		this.appSecret = appSecret;
@@ -60,7 +56,7 @@ public class XapoMicroPaymentSDK {
 	 *            the request to be sent to the server
 	 * @return the URL to send the request data
 	 */
-	protected String buildWidgetUrl(ButtonRequest request) {
+	protected String buildWidgetUrl(MicroPaymentConfig request) {
 		
 		long timestamp = System.currentTimeMillis();
 		String buttonRequestJson = jsonMarshaller.getJson(request, timestamp);
@@ -115,12 +111,12 @@ public class XapoMicroPaymentSDK {
 	/**
 	 * Builds a Div HTML tag including the request data
 	 * 
-	 * @param buttonRequest
+	 * @param microPaymentConfig
 	 *            the data to sent to the server
 	 * @return the HTML tag string
 	 */
-	public String buildDivWidget(ButtonRequest buttonRequest) {
-		String widgetUrl = buildWidgetUrl(buttonRequest);
+	public String buildDivWidget(MicroPaymentConfig microPaymentConfig) {
+		String widgetUrl = buildWidgetUrl(microPaymentConfig);
 		StringBuffer res = new StringBuffer();
 		res.append("<div id='tipButtonDiv' class='tipButtonDiv'></div>\n");
 		res.append("<div id='tipButtonPopup' class='tipButtonPopup'></div>\n");
@@ -138,13 +134,13 @@ public class XapoMicroPaymentSDK {
 	/**
 	 * Builds an iFrame HTML tag including the request data
 	 * 
-	 * @param buttonRequest
-	 *            the data to sent to the server
+	 * @param microPaymentConfig
+	 *            the data to configure de payment button
 	 * @return the HTML tag string
 	 */
-	public String buildIframeWidget(ButtonRequest request) {
+	public String buildIframeWidget(MicroPaymentConfig microPaymentConfig) {
 
-		String widgetUrl = buildWidgetUrl(request);
+		String widgetUrl = buildWidgetUrl(microPaymentConfig);
 		StringBuffer res = new StringBuffer();
 		res.append("<iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden; height:22px;' allowTransparency='true' src='");
 
