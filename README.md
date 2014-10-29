@@ -5,14 +5,19 @@
 
 [Changelog](CHANGELOG.md)
 
-# Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
 
-- [Notes](#notes)
-- [Build](#build)
-- [Micro Payment Widgets](#micro-payment-widgets)
-  - [IFrame Widget](#iframe-widget)
-  - [Div Widget](#div-widget)
-  - [Widgets Gallery](#widgets-gallery)
+- [Table of Contents](#table-of-contents)
+  - [Notes](#notes)
+  - [Build](#build)
+  - [Micro Payment Widgets](#micro-payment-widgets)
+    - [IFrame Widget](#iframe-widget)
+    - [Div Widget](#div-widget)
+    - [Widgets Gallery](#widgets-gallery)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Notes
 
