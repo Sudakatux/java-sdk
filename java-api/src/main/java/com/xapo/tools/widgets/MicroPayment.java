@@ -2,8 +2,11 @@ package com.xapo.tools.widgets;
 
 import com.xapo.utils.encrypt.MCrypt;
 import com.xapo.utils.json.JsonMarshaller;
+import com.xapo.utils.url.QueryString;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 
 public class MicroPayment {
 
@@ -57,50 +60,28 @@ public class MicroPayment {
     /**
      * Build the URL based in the request data
      *
-     * @param request the request to be sent to the server
+     * @param config the config to be sent to the server
      * @return the URL to send the request data
      */
-    protected String buildWidgetUrl(MicroPaymentConfig request) {
-
+    protected String buildWidgetUrl(MicroPaymentConfig config) {
         long timestamp = System.currentTimeMillis();
-        String buttonRequestJson = jsonMarshaller.getJson(request, timestamp);
-        URI widgetUrl = null;
-        String widgetStr = "";
+        String jsonButtonConfig = jsonMarshaller.getJson(config, timestamp);
+        QueryString query = new QueryString();
 
-        StringBuilder query = new StringBuilder();
-        query.append("customization={\"button_text\":\"");
-        query.append(request.getPayType());
-        query.append("\"}");
+        query.add("customization", "{\"button_text\":\"" + config.getPayType() + "\"}");
 
         if (this.appID == null || this.appSecret == null) {
-            query.append("&");
-            query.append("payload=");
-            query.append(buttonRequestJson);
+            query.add("payload", jsonButtonConfig);
         } else {
-            String buttonRequestEnc = encrypt(buttonRequestJson);
+            String encryptedButtonConfig = encrypt(jsonButtonConfig);
 
-            query.append("&");
-            query.append("app_id=");
-            query.append(appID);
-
-            query.append("&");
-            query.append("button_request=");
-            buttonRequestEnc = buttonRequestEnc.replace("=", "%3D");
-            query.append(buttonRequestEnc);
+            query.add("app_id", appID);
+            query.add("button_request", encryptedButtonConfig);
         }
 
         String queryStr = query.toString();
 
-        queryStr = queryStr.replace("/", "%2F");
-        queryStr = queryStr.replace("\"", "%22");
-        queryStr = queryStr.replace("{", "%7B");
-        queryStr = queryStr.replace("}", "%7D");
-        queryStr = queryStr.replace(" ", "%20");
-        queryStr = queryStr.replace("+", "%2B");
-        queryStr = queryStr.replace(":", "%3A");
-        queryStr = queryStr.replace("\n", "%0A");
-
-        widgetStr = serviceParameters.getScheme() + "://" +
+        String widgetStr = serviceParameters.getScheme() + "://" +
                 serviceParameters.getHost() + ":" + serviceParameters.getPort() +
                 serviceParameters.getPath() + "?" + queryStr;
 
@@ -111,7 +92,8 @@ public class MicroPayment {
     protected URI createURI(String query) {
         try {
             return new URI(serviceParameters.getScheme(), null /*userInfo*/,
-                    serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query, null /* fragment */);
+                    serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query,
+                    null /* fragment */);
 
         } catch (Exception e) {
             throw new RuntimeException("Can't create URL", e);
@@ -151,11 +133,22 @@ public class MicroPayment {
 
         String widgetUrl = buildWidgetUrl(microPaymentConfig);
         StringBuffer res = new StringBuffer();
-        res.append("<iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden; height:22px;' allowTransparency='true' src='");
+        res.append("<iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden;");
+        res.append(" height:22px;' allowTransparency='true' src='");
 
         res.append(widgetUrl);
         res.append("'></iframe>");
         return res.toString();
+    }
+
+    private String encode(String string) {
+        try {
+            string = URLEncoder.encode(string, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return string;
     }
 
 }
