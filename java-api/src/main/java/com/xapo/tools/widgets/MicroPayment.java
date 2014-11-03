@@ -4,9 +4,7 @@ import com.xapo.utils.encrypt.MCrypt;
 import com.xapo.utils.json.JsonMarshaller;
 import com.xapo.utils.url.QueryString;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLEncoder;
 
 public class MicroPayment {
 
@@ -109,7 +107,8 @@ public class MicroPayment {
      */
     public String buildDivWidget(MicroPaymentConfig microPaymentConfig) {
         String widgetUrl = buildWidgetUrl(microPaymentConfig);
-        StringBuffer res = new StringBuffer();
+        StringBuilder  res = new StringBuilder();
+
         res.append("<div id='tipButtonDiv' class='tipButtonDiv'></div>\n");
         res.append("<div id='tipButtonPopup' class='tipButtonPopup'></div>\n");
         res.append("<script>\n");
@@ -130,9 +129,9 @@ public class MicroPayment {
      * @return the HTML tag string
      */
     public String buildIframeWidget(MicroPaymentConfig microPaymentConfig) {
-
         String widgetUrl = buildWidgetUrl(microPaymentConfig);
-        StringBuffer res = new StringBuffer();
+        StringBuilder res = new StringBuilder();
+
         res.append("<iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden;");
         res.append(" height:22px;' allowTransparency='true' src='");
 
@@ -140,15 +139,4 @@ public class MicroPayment {
         res.append("'></iframe>");
         return res.toString();
     }
-
-    private String encode(String string) {
-        try {
-            string = URLEncoder.encode(string, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        return string;
-    }
-
 }
