@@ -1,5 +1,7 @@
 package com.xapo.utils.json;
 
+import com.google.gson.Gson;
+import com.xapo.model.PaymentRequest;
 import com.xapo.tools.widgets.MicroPaymentConfig;
 
 public class JsonMarshaller {
@@ -33,6 +35,11 @@ public class JsonMarshaller {
 //		json.append("}");
 
 		return json.toString();
+	}
+
+	public String paymentToJson(PaymentRequest pr) {
+		
+		return new Gson().toJson(pr);
 	}
 
 	
