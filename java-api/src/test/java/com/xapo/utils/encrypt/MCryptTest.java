@@ -12,16 +12,17 @@ import static org.junit.Assert.assertNotEquals;
 public class MCryptTest {
 
 	private MCrypt aesEncrypt;
+	private MCrypt zeroPaddingEncrypt;
 	private static String APP_SECRET = "c533a6e606fb62ccb13e8baf8a95cbdc";
 
 	@Before
 	public void setUp() throws Exception {
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-		aesEncrypt = new MCrypt(); 
+		aesEncrypt = new MCrypt();
+		zeroPaddingEncrypt = new MCrypt(new ZeroPadding());
 	}
 	
 	@Test
-	@Ignore
 	public void testEncryptDecrypt() throws Exception {
 		String textToEncrypt = "This text is not encrypted";
 
@@ -29,7 +30,21 @@ public class MCryptTest {
 		assertNotEquals("encrypted text must be different that orignal text ",textToEncrypt, encryptedText);
 		
 		String decryptedText = aesEncrypt.decrypt(APP_SECRET, encryptedText);
-		assertEquals("decripted text must be equals to the original one",textToEncrypt, decryptedText);	
+
+		assertEquals("decripted text must be equals to the original one", textToEncrypt, decryptedText);
+	}
+
+
+	@Test
+	public void testEncryptDecryptZeroPadding() throws Exception {
+		String textToEncrypt = "This text is not encrypted";
+
+		String	encryptedText = zeroPaddingEncrypt.encrypt(APP_SECRET, textToEncrypt);
+		assertNotEquals("encrypted text must be different that orignal text ",textToEncrypt, encryptedText);
+
+		String decryptedText = zeroPaddingEncrypt.decrypt(APP_SECRET, encryptedText);
+
+		assertEquals("decripted text must be equals to the original one", textToEncrypt, decryptedText);
 	}
 	
 	

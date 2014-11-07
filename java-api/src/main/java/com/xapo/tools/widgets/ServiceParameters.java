@@ -2,60 +2,60 @@ package com.xapo.tools.widgets;
 
 public class ServiceParameters {
 
-	private String scheme;
-	private String host;
-	private String path;
-	private int port = -1;
-	
-	public ServiceParameters(String serviceURL) {
-		init(serviceURL);
-	}
+    private String scheme;
+    private String host;
+    private String path;
+    private int port = -1;
 
-	private void init(String serviceURL) {
-		String[] schemaSplit = serviceURL.split("://");
-		this.scheme = schemaSplit[0];
-		initPath(schemaSplit[1]);
-	}
+    public ServiceParameters(String serviceURL) {
+        init(serviceURL);
+    }
 
-	private void initPath(String hostAndPath) {
-		int slashIndex = hostAndPath.indexOf("/");
+    private void init(String serviceURL) {
+        String[] schemaSplit = serviceURL.split("://");
+        this.scheme = schemaSplit[0];
+        initPath(schemaSplit[1]);
+    }
 
-		String hostAndPort;
-		if (slashIndex < 0) {
-			// no slash in URL
-			hostAndPort = hostAndPath;
-			this.path= "/";
-		} else {
-			hostAndPort = hostAndPath.substring(0, slashIndex);
-			this.path = hostAndPath.substring(slashIndex,
-					hostAndPath.length());
-		}
+    private void initPath(String hostAndPath) {
+        int slashIndex = hostAndPath.indexOf("/");
 
-		initHostAndPort(hostAndPort);
-	}
+        String hostAndPort;
+        if (slashIndex < 0) {
+            // no slash in URL
+            hostAndPort = hostAndPath;
+            this.path = "/";
+        } else {
+            hostAndPort = hostAndPath.substring(0, slashIndex);
+            this.path = hostAndPath.substring(slashIndex,
+                    hostAndPath.length());
+        }
 
-	private void initHostAndPort(String hostAndPort) {
-		String[] split = hostAndPort.split(":");
-		this.host = split[0];
-		
-		if (split.length > 1){
-			this.port = Integer.parseInt(split[1]); 
-		}
-	}
+        initHostAndPort(hostAndPort);
+    }
 
-	public String getScheme() {
-		return scheme;
-	}
+    private void initHostAndPort(String hostAndPort) {
+        String[] split = hostAndPort.split(":");
+        this.host = split[0];
 
-	public String getHost() {
-		return host;
-	}
+        if (split.length > 1) {
+            this.port = Integer.parseInt(split[1]);
+        }
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getScheme() {
+        return scheme;
+    }
 
-	public int getPort() {
-		return port;
-	}
+    public String getHost() {
+        return host;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public int getPort() {
+        return port;
+    }
 }

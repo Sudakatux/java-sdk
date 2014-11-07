@@ -1,8 +1,8 @@
 package com.xapo.tools.widgets;
 
 import com.xapo.utils.encrypt.MCrypt;
-import com.xapo.utils.json.JsonMarshaller;
 import com.xapo.utils.url.QueryString;
+import mjson.Json;
 
 import java.net.URI;
 
@@ -11,8 +11,7 @@ public class MicroPayment {
     private ServiceParameters serviceParameters;
     private String appID;
     private String appSecret;
-    private JsonMarshaller jsonMarshaller = new JsonMarshaller();
-    private MCrypt aesEncrypt = new MCrypt();
+    private MCrypt mCrypt = new MCrypt();
 
     /**
      * Constructor. Configure a payment button widget with TPA credentials.
@@ -48,10 +47,9 @@ public class MicroPayment {
      */
     protected String encrypt(String data) {
         try {
-            return aesEncrypt.encrypt(appSecret, data);
+            return mCrypt.encrypt(appSecret, data);
         } catch (Exception e) {
             throw new RuntimeException("Can't encrypt the data", e);
-
         }
     }
 
@@ -63,7 +61,7 @@ public class MicroPayment {
      */
     protected String buildWidgetUrl(MicroPaymentConfig config) {
         long timestamp = System.currentTimeMillis();
-        String jsonButtonConfig = jsonMarshaller.getJson(config, timestamp);
+        String jsonButtonConfig = buildJson(config, timestamp);
         QueryString query = new QueryString();
 
         query.add("customization", "{\"button_text\":\"" + config.getPayType() + "\"}");
@@ -83,20 +81,7 @@ public class MicroPayment {
                 serviceParameters.getHost() + ":" + serviceParameters.getPort() +
                 serviceParameters.getPath() + "?" + queryStr;
 
-        // fix : encode
         return widgetStr;
-    }
-
-    protected URI createURI(String query) {
-        try {
-            return new URI(serviceParameters.getScheme(), null /*userInfo*/,
-                    serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query,
-                    null /* fragment */);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Can't create URL", e);
-        }
-
     }
 
     /**
@@ -107,7 +92,7 @@ public class MicroPayment {
      */
     public String buildDivWidget(MicroPaymentConfig microPaymentConfig) {
         String widgetUrl = buildWidgetUrl(microPaymentConfig);
-        StringBuilder  res = new StringBuilder();
+        StringBuilder res = new StringBuilder();
 
         res.append("<div id='tipButtonDiv' class='tipButtonDiv'></div>\n");
         res.append("<div id='tipButtonPopup' class='tipButtonPopup'></div>\n");
@@ -138,5 +123,30 @@ public class MicroPayment {
         res.append(widgetUrl);
         res.append("'></iframe>");
         return res.toString();
+    }
+
+    private URI createURI(String query) {
+        try {
+            return new URI(serviceParameters.getScheme(), null /*userInfo*/,
+                    serviceParameters.getHost(), serviceParameters.getPort(), serviceParameters.getPath(), query,
+                    null /* fragment */);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Can't create URL", e);
+        }
+    }
+
+    private String buildJson(MicroPaymentConfig config, long timestamp) {
+        Json json = Json.object()
+                .set("sender_user_id", config.getSenderUserId())
+                .set("sender_user_email", config.getSenderUserEmail())
+                .set("sender_user_cellphone", config.getSenderUserCellphone())
+                .set("receiver_user_id", config.getReceiverUserId())
+                .set("receiver_user_email", config.getReceiverUserEmail())
+                .set("pay_object_id", config.getPayObjectId())
+                .set("amount_BIT", config.getAmountBIT())
+                .set("timestamp", timestamp);
+
+        return json.toString();
     }
 }

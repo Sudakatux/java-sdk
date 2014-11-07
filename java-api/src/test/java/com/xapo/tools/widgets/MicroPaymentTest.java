@@ -1,6 +1,5 @@
 package com.xapo.tools.widgets;
 
-import com.xapo.utils.json.JsonMarshaller;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,9 +36,7 @@ public class MicroPaymentTest {
         request.setPayType(MicroPaymentConfig.PAY_TYPE_DONATE);
         String div = mp.buildDivWidget(request);
 
-        System.out.println((new JsonMarshaller()).getJson(request, System.currentTimeMillis()));
-        System.out.println("Got:");
-        System.out.println(div);
+        System.out.println("testBuildDivWidget -> \n" + div);
 
         // TODO write better assertions
         assert (div.contains("button_request"));
@@ -50,9 +47,7 @@ public class MicroPaymentTest {
         request.setPayType(MicroPaymentConfig.PAY_TYPE_DONATE);
         String div = mpNoTpa.buildDivWidget(request);
 
-        System.out.println((new JsonMarshaller()).getJson(request, System.currentTimeMillis()));
-        System.out.println("Got:");
-        System.out.println(div);
+        System.out.println("testBuildDivWidgetmpNoTpa -> \n" + div);
 
         // TODO write better assertions
         assert (div.contains("payload"));
@@ -63,9 +58,7 @@ public class MicroPaymentTest {
         request.setPayType(MicroPaymentConfig.PAY_TYPE_TIP);
         String iframe = mp.buildIframeWidget(request);
 
-        System.out.println((new JsonMarshaller()).getJson(request, System.currentTimeMillis()));
-        System.out.println("Got:");
-        System.out.println(iframe);
+        System.out.println("testBuildIframeWidget -> \n" + iframe);
 
         assert (iframe.matches("<iframe(.*)button_request=(.*)></iframe>(.*)"));
     }
@@ -75,9 +68,7 @@ public class MicroPaymentTest {
         request.setPayType(MicroPaymentConfig.PAY_TYPE_TIP);
         String iframe = mpNoTpa.buildIframeWidget(request);
 
-        System.out.println((new JsonMarshaller()).getJson(request, System.currentTimeMillis()));
-        System.out.println("Got:");
-        System.out.println(iframe);
+        System.out.println("testBuildIframeWidgetNoTpa -> \n" + iframe);
 
         assert (iframe.matches("<iframe(.*)payload=(.*)></iframe>(.*)"));
     }
