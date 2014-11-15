@@ -8,7 +8,7 @@ public class MicroPaymentTest {
     // pay type: "Tip", "Pay", "Deposit" o "Donate"
     private static final String APP_ID = "b91014cc28c94841";
     private static final String APP_SECRET = "c533a6e606fb62ccb13e8baf8a95cbdc";
-    private static final String XAPO_URL = "http://dev.xapo.com:8089/pay_button/show";
+    private static final String XAPO_URL = "https://mpayment.xapo.com/pay_button/show";
     private MicroPayment mp;
     private MicroPayment mpNoTpa;
     private MicroPaymentConfig request;

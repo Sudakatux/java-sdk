@@ -17,7 +17,7 @@ public class MicroPayment {
      * Constructor. Configure a payment button widget with TPA credentials.
      *
      * @param serviceURL The service URL. e.g.
-     *                   "http://dev.xapo.com:8089/pay_button/show"
+     *                   "https://mpayment.xapo.com/pay_button/show"
      * @param appID      The ID of the application that uses this SDK
      * @param appSecret  the encryption secret key of the application that uses this
      *                   SDK
@@ -32,7 +32,7 @@ public class MicroPayment {
      * Constructor. Configure a payment button without a TPA.
      *
      * @param serviceURL The service URL. e.g.
-     *                   "http://dev.xapo.com:8089/pay_button/show"
+     *                   "https://mpayment.xapo.com/pay_button/show"
      */
     public MicroPayment(String serviceURL) {
         this.serviceParameters = new ServiceParameters(serviceURL);
