@@ -9,11 +9,26 @@ import retrofit.client.Response;
 import java.util.UUID;
 
 /**
+ * Xapo's API.
+ *
+ * This class allows the interaction with bitcoins APIs provided with Xapo.
+ *
  * Created by frepond on 6/11/14.
  */
 public class API {
+    /**
+     * The id of the TPA doing the credit.
+     */
     private String appId;
+
+    /**
+     * The TPA secret used to encrypt payload.
+     */
     private String secret;
+
+    /**
+     * The endpoint URL that returns the payment widget.
+     */
     private XapoService service;
 
     public API(String url, String appId, String secret) {
@@ -26,6 +41,13 @@ public class API {
         this.service = restAdapter.create(XapoService.class);
     }
 
+    /**
+     * Transfer a given amount from the main wallet of the TPA to a given sub account.
+     *
+     * @param to the destination of the credit.
+     * @param amount the amount to be credited.
+     * @param currency the currency of the operation (SAT|BTC).
+     */
     public Json credit(String to, float amount, String currency,
                           String comments, String subject) throws RuntimeException {
         String id = UUID.randomUUID().toString();
@@ -33,7 +55,14 @@ public class API {
         return this.credit(to, amount, id, currency, comments, subject);
     }
 
-
+    /**
+     * Transfer a given amount from the main wallet of the TPA to a given sub account.
+     *
+     * @param to the destination of the credit.
+     * @param amount the amount to be credited.
+     * @param requestId a unique identifier for the credit operation.
+     * @param currency the currency of the operation (SAT|BTC).
+     */
     public Json credit(String to, float amount, String requestId, String currency,
                           String comments, String subject) throws RuntimeException {
         Response response = null;

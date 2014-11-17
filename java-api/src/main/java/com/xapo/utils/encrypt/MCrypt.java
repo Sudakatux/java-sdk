@@ -9,6 +9,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
 
+/**
+ * Encryption and decryption utils for XAPO services.
+ *
+ * @author Federico C. Repond
+ */
 public class MCrypt {
     static {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -21,6 +26,11 @@ public class MCrypt {
         this(new PKCS7Padding());
     }
 
+    /**
+     * Create a new encryption and decryption class with a given padding scheme.
+     *
+     * @param padding the padding scheme to be used.
+     */
     public MCrypt(Padding padding) {
         try {
             this.cipher = Cipher.getInstance("AES/ECB/NoPadding", "BC");
@@ -36,6 +46,14 @@ public class MCrypt {
         }
     }
 
+    /**
+     * Encrypt a text with the given key. The result is base 64 encoded.
+     *
+     * @param secretKey the key used to encrypt the data.
+     * @param text the text to encrypt.
+     * @return base 64 encode of the encrypted text.
+     * @throws Exception
+     */
     public String encrypt(String secretKey, String text) throws Exception {
         SecretKeySpec keyspec = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
 
@@ -50,6 +68,14 @@ public class MCrypt {
         return new String(Base64.encode(encrypted));
     }
 
+    /**
+     * Decrypt a base 64 encoded and encrypted text.
+     *
+     * @param secretKey
+     * @param code
+     * @return
+     * @throws Exception
+     */
     public String decrypt(String secretKey, String code) throws Exception {
         SecretKeySpec keyspec = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
 

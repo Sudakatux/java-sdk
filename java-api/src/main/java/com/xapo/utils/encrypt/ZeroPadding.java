@@ -1,6 +1,8 @@
 package com.xapo.utils.encrypt;
 
 /**
+ * Pad and unpad using Zero padding scheme.
+ *
  * Created by frepond on 6/11/14.
  */
 public class ZeroPadding implements Padding {

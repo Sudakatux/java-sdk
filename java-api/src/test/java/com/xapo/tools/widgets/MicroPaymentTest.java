@@ -1,17 +1,19 @@
 package com.xapo.tools.widgets;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MicroPaymentTest {
 
-    // pay type: "Tip", "Pay", "Deposit" o "Donate"
-    private static final String APP_ID = "b91014cc28c94841";
-    private static final String APP_SECRET = "c533a6e606fb62ccb13e8baf8a95cbdc";
+    // pay type: "Tip", "Pay", "Deposit", "Donate" or "OAuth"
+    private static final String APP_ID = "your app id";
+    private static final String APP_SECRET = "your app secret";
     private static final String XAPO_URL = "https://mpayment.xapo.com/pay_button/show";
     private MicroPayment mp;
     private MicroPayment mpNoTpa;
-    private MicroPaymentConfig request;
+    private MicroPaymentConfig config;
+    private MicroPaymentCustomization customization;
 
     @Before
     public void setUp() throws Exception {
@@ -19,22 +21,30 @@ public class MicroPaymentTest {
                 APP_ID, APP_SECRET);
         mpNoTpa = new MicroPayment(XAPO_URL);
 
-        request = new MicroPaymentConfig();
-        // TODO amountBIT = String  BigDecimal Decimal ??
+        config = new MicroPaymentConfig();
+        customization = new MicroPaymentCustomization();
 
-        request.setAmountBIT("0.01");
-        request.setPayObjectId("to0210");
-        request.setReceiverUserEmail("jhon.doe@leapsight.com");
-        request.setReceiverUserId("r0210");
-        request.setSenderUserCellphone("+5491112341234");
-        request.setSenderUserEmail("jane.doe@xapo.com");
-        request.setSenderUserId("");
+        config.setAmountBIT("0.01");
+        config.setPayObjectId("to0210");
+        config.setReceiverUserEmail("jhon.doe@leapsight.com");
+        config.setReceiverUserId("r0210");
+        config.setSenderUserCellphone("+5491112341234");
+        config.setSenderUserEmail("jane.doe@xapo.com");
+        config.setSenderUserId("");
+        config.setReferenceCode("test");
+        config.setEndMpaymentUri("http://localhost:9000");
+        config.setRedirectUri("http://localhost:9000");
+
+        customization.setPredefinedPayValues("1,5,10");
+        customization.setLoginCellphoneHeaderTitle("Test MicroPayment");
     }
 
+    @Ignore("Set app id and secret and remove this line")
     @Test
     public void testBuildDivWidget() {
-        request.setPayType(MicroPaymentConfig.PAY_TYPE_DONATE);
-        String div = mp.buildDivWidget(request);
+        config.setPayType(PayType.DONATE);
+        customization.setButtonCss("red");
+        String div = mp.buildDivWidget(config, customization);
 
         System.out.println("testBuildDivWidget -> \n" + div);
 
@@ -42,10 +52,12 @@ public class MicroPaymentTest {
         assert (div.contains("button_request"));
     }
 
+    @Ignore("Set app id and secret and remove this line")
     @Test
     public void testBuildDivWidgetmpNoTpa() {
-        request.setPayType(MicroPaymentConfig.PAY_TYPE_DONATE);
-        String div = mpNoTpa.buildDivWidget(request);
+        config.setPayType(PayType.DONATE);
+        customization.setButtonCss("grey");
+        String div = mpNoTpa.buildDivWidget(config, customization);
 
         System.out.println("testBuildDivWidgetmpNoTpa -> \n" + div);
 
@@ -53,20 +65,24 @@ public class MicroPaymentTest {
         assert (div.contains("payload"));
     }
 
+    @Ignore("Set app id and secret and remove this line")
     @Test
     public void testBuildIframeWidget() {
-        request.setPayType(MicroPaymentConfig.PAY_TYPE_TIP);
-        String iframe = mp.buildIframeWidget(request);
+        config.setPayType(PayType.TIP);
+        customization.setButtonCss("red");
+        String iframe = mp.buildIframeWidget(config, customization);
 
         System.out.println("testBuildIframeWidget -> \n" + iframe);
 
         assert (iframe.matches("<iframe(.*)button_request=(.*)></iframe>(.*)"));
     }
 
+    @Ignore("Set app id and secret and remove this line")
     @Test
     public void testBuildIframeWidgetNoTpa() {
-        request.setPayType(MicroPaymentConfig.PAY_TYPE_TIP);
-        String iframe = mpNoTpa.buildIframeWidget(request);
+        config.setPayType(PayType.TIP);
+        customization.setButtonCss("grey");
+        String iframe = mpNoTpa.buildIframeWidget(config, customization);
 
         System.out.println("testBuildIframeWidgetNoTpa -> \n" + iframe);
 

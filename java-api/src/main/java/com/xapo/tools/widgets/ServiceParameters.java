@@ -1,5 +1,10 @@
 package com.xapo.tools.widgets;
 
+/**
+ * Service scheme, host, path and port.
+ *
+ * @author Fernando D. García
+ */
 public class ServiceParameters {
 
     private String scheme;

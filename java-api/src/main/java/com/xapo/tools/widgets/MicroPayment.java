@@ -6,8 +6,16 @@ import mjson.Json;
 
 import java.net.URI;
 
+/**
+ * Xapo's payment buttons snippet builder.
+ *
+ * This class allows the construction of 2 kind of widgets, <i>div</i> and
+ * <i>iframe</i>. The result is a HTML snippet that could be embedded in a
+ * web page for doing micro payments though a payment button.
+ *
+ * @author Fernando D. García
+ */
 public class MicroPayment {
-
     private ServiceParameters serviceParameters;
     private String appID;
     private String appSecret;
@@ -54,17 +62,19 @@ public class MicroPayment {
     }
 
     /**
-     * Build the URL based in the request data
+     * Build the URL based on the configuration and customization options.
      *
      * @param config the config to be sent to the server
+     * @param customization button customization options
+     *
      * @return the URL to send the request data
      */
-    protected String buildWidgetUrl(MicroPaymentConfig config) {
+    private String buildWidgetUrl(MicroPaymentConfig config, MicroPaymentCustomization customization) {
         long timestamp = System.currentTimeMillis();
-        String jsonButtonConfig = buildJson(config, timestamp);
+        String jsonButtonConfig = buildJsonConfig(config, timestamp);
         QueryString query = new QueryString();
 
-        query.add("customization", "{\"button_text\":\"" + config.getPayType() + "\"}");
+        query.add("customization", buildCustomizationJson(customization));
 
         if (this.appID == null || this.appSecret == null) {
             query.add("payload", jsonButtonConfig);
@@ -85,13 +95,15 @@ public class MicroPayment {
     }
 
     /**
-     * Builds a Div HTML tag including the request data
+     * Builds a Div HTML widget based on configuration and customization options.
      *
-     * @param microPaymentConfig the data to sent to the server
+     * @param config the data to sent to the server
+     * @param customization button customization options
+     *
      * @return the HTML tag string
      */
-    public String buildDivWidget(MicroPaymentConfig microPaymentConfig) {
-        String widgetUrl = buildWidgetUrl(microPaymentConfig);
+    public String buildDivWidget(MicroPaymentConfig config, MicroPaymentCustomization customization) {
+        String widgetUrl = buildWidgetUrl(config, customization);
         StringBuilder res = new StringBuilder();
 
         res.append("<div id='tipButtonDiv' class='tipButtonDiv'></div>\n");
@@ -108,13 +120,15 @@ public class MicroPayment {
     }
 
     /**
-     * Builds an iFrame HTML tag including the request data
+     * Builds an iFrame HTML widget based on configuration and customization options.
      *
-     * @param microPaymentConfig the data to configure de payment button
+     * @param config the data to configure de payment button
+     * @param customization button customization options
+     *
      * @return the HTML tag string
      */
-    public String buildIframeWidget(MicroPaymentConfig microPaymentConfig) {
-        String widgetUrl = buildWidgetUrl(microPaymentConfig);
+    public String buildIframeWidget(MicroPaymentConfig config, MicroPaymentCustomization customization) {
+        String widgetUrl = buildWidgetUrl(config, customization);
         StringBuilder res = new StringBuilder();
 
         res.append("<iframe id='tipButtonFrame' scrolling='no' frameborder='0' style='border:none; overflow:hidden;");
@@ -136,7 +150,7 @@ public class MicroPayment {
         }
     }
 
-    private String buildJson(MicroPaymentConfig config, long timestamp) {
+    private String buildJsonConfig(MicroPaymentConfig config, long timestamp) {
         Json json = Json.object()
                 .set("sender_user_id", config.getSenderUserId())
                 .set("sender_user_email", config.getSenderUserEmail())
@@ -146,6 +160,15 @@ public class MicroPayment {
                 .set("pay_object_id", config.getPayObjectId())
                 .set("amount_BIT", config.getAmountBIT())
                 .set("timestamp", timestamp);
+
+        return json.toString();
+    }
+
+    private String buildCustomizationJson(MicroPaymentCustomization customization) {
+        Json json = Json.object()
+                .set("predefined_pay_values", customization.getPredefinedPayValues())
+                .set("login_cellphone_header_title", customization.getLoginCellphoneHeaderTitle())
+                .set("button_css", customization.getButtonCss());
 
         return json.toString();
     }

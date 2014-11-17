@@ -1,10 +1,18 @@
 package com.xapo.utils.encrypt;
 
 /**
+ * Pad and unpad using PKCS7 padding scheme.
+ *
  * Created by frepond on 6/11/14.
  */
 public class PKCS7Padding implements Padding {
 
+    /**
+     * @see com.xapo.utils.encrypt.Padding
+     *
+     * @param source the string to be padded.
+     * @return
+     */
     public String pad(String source) {
         int size = 16;
         int x = source.length() % size;
@@ -18,6 +26,12 @@ public class PKCS7Padding implements Padding {
         return source;
     }
 
+    /**
+     * @see com.xapo.utils.encrypt.Padding
+     *
+     * @param source the string to be unpadded.
+     * @return
+     */
     public byte[] unpad(byte[] source) {
         //Remove trailing zeroes
         if (source.length > 0) {
