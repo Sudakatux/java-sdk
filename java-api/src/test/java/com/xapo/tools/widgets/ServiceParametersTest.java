@@ -9,7 +9,7 @@ public class ServiceParametersTest {
 
 	@Test
 	public void testConstructor() {
-		String serviceURL = "http://dev.xapo.com:8089/pay_button/show";
+		String serviceURL = "https://mpayment.xapo.com/pay_button/show";
 		ServiceParameters serviceParameters = new ServiceParameters(serviceURL);
 
 		assertEquals("Scheme", "http", serviceParameters.getScheme());
