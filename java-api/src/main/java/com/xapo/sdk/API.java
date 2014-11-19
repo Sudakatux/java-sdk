@@ -1,12 +1,20 @@
 package com.xapo.sdk;
 
-import com.xapo.utils.encrypt.MCrypt;
-import com.xapo.utils.encrypt.ZeroPadding;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
+
 import mjson.Json;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
+import retrofit.mime.MimeUtil;
+import retrofit.mime.TypedByteArray;
+import retrofit.mime.TypedInput;
 
-import java.util.UUID;
+import com.xapo.model.XapoResponse;
+import com.xapo.utils.encrypt.MCrypt;
+import com.xapo.utils.encrypt.ZeroPadding;
 
 /**
  * Xapo's API.
@@ -48,7 +56,7 @@ public class API {
      * @param amount the amount to be credited.
      * @param currency the currency of the operation (SAT|BTC).
      */
-    public Json credit(String to, float amount, String currency,
+    public XapoResponse credit(String to, float amount, String currency,
                           String comments, String subject) throws RuntimeException {
         String id = UUID.randomUUID().toString();
 
@@ -63,14 +71,14 @@ public class API {
      * @param requestId a unique identifier for the credit operation.
      * @param currency the currency of the operation (SAT|BTC).
      */
-    public Json credit(String to, float amount, String requestId, String currency,
+    public XapoResponse credit(String to, float amount, String requestId, String currency,
                           String comments, String subject) throws RuntimeException {
-        Response response = null;
+        XapoResponse response = null;
         MCrypt mcrypt = new MCrypt(new ZeroPadding());
         long timestamp = System.currentTimeMillis();
         Json payload = Json.object()
                 .set("to", to)
-                .set("currency", amount)
+                .set("amount", amount)
                 .set("currency", currency)
                 .set("comments", comments)
                 .set("subject", subject)
@@ -85,7 +93,12 @@ public class API {
         } catch(Exception e) {
             throw new RuntimeException(e);
         }
+        
+		
+		//System.out.println("reason "+response.getReason()+" "+response.toString()+" body="	);
 
-        return Json.read(response.getBody().toString());
+        return response;
     }
+    
+   
 }

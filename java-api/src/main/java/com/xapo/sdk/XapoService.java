@@ -6,6 +6,8 @@ import retrofit.http.Query;
 
 import java.util.List;
 
+import com.xapo.model.XapoResponse;
+
 /**
  * XAPO API endpoints.
  *
@@ -13,5 +15,5 @@ import java.util.List;
  */
 public interface XapoService {
     @GET("/credit/")
-    Response credit(@Query("appID") String appID, @Query("hash") String hash);
+    XapoResponse credit(@Query("appID") String appID, @Query("hash") String hash);
 }
