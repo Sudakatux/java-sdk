@@ -12,11 +12,9 @@ public class ServiceParametersTest {
 		String serviceURL = "https://mpayment.xapo.com/pay_button/show";
 		ServiceParameters serviceParameters = new ServiceParameters(serviceURL);
 
-		assertEquals("Scheme", "http", serviceParameters.getScheme());
-		assertEquals("Host", "dev.xapo.com", serviceParameters.getHost());
+		assertEquals("Scheme", "https", serviceParameters.getScheme());
+		assertEquals("Host", "mpayment.xapo.com", serviceParameters.getHost());
 		assertEquals("Path", "/pay_button/show", serviceParameters.getPath());
-		assertEquals("Port", 8089, serviceParameters.getPort());
-
 	}
 
 	@Test

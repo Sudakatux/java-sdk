@@ -3,9 +3,11 @@ package com.xapo.sdk;
 import com.xapo.utils.encrypt.MCrypt;
 import com.xapo.utils.encrypt.ZeroPadding;
 import mjson.Json;
+import org.apache.commons.io.IOUtils;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -66,11 +68,12 @@ public class API {
     public Json credit(String to, float amount, String requestId, String currency,
                           String comments, String subject) throws RuntimeException {
         Response response = null;
+        String jsonString = null;
         MCrypt mcrypt = new MCrypt(new ZeroPadding());
         long timestamp = System.currentTimeMillis();
         Json payload = Json.object()
                 .set("to", to)
-                .set("currency", amount)
+                .set("amount", amount)
                 .set("currency", currency)
                 .set("comments", comments)
                 .set("subject", subject)
@@ -86,6 +89,12 @@ public class API {
             throw new RuntimeException(e);
         }
 
-        return Json.read(response.getBody().toString());
+        try {
+            jsonString = IOUtils.toString(response.getBody().in(), "UTF-8");
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading credit response.");
+        }
+
+        return Json.read(jsonString);
     }
 }
