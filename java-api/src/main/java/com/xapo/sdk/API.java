@@ -1,16 +1,14 @@
 package com.xapo.sdk;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.UUID;
 
 import mjson.Json;
+
+import org.apache.commons.io.IOUtils;
+
 import retrofit.RestAdapter;
 import retrofit.client.Response;
-import retrofit.mime.MimeUtil;
-import retrofit.mime.TypedByteArray;
-import retrofit.mime.TypedInput;
 
 import com.xapo.model.XapoResponse;
 import com.xapo.utils.encrypt.MCrypt;
@@ -56,7 +54,7 @@ public class API {
      * @param amount the amount to be credited.
      * @param currency the currency of the operation (SAT|BTC).
      */
-    public XapoResponse credit(String to, float amount, String currency,
+    public Json credit(String to, float amount, String currency,
                           String comments, String subject) throws RuntimeException {
         String id = UUID.randomUUID().toString();
 
@@ -71,9 +69,10 @@ public class API {
      * @param requestId a unique identifier for the credit operation.
      * @param currency the currency of the operation (SAT|BTC).
      */
-    public XapoResponse credit(String to, float amount, String requestId, String currency,
+    public Json credit(String to, float amount, String requestId, String currency,
                           String comments, String subject) throws RuntimeException {
-        XapoResponse response = null;
+        Response response = null;
+        String jsonString = null;
         MCrypt mcrypt = new MCrypt(new ZeroPadding());
         long timestamp = System.currentTimeMillis();
         Json payload = Json.object()
@@ -95,9 +94,14 @@ public class API {
         }
         
 		
-		//System.out.println("reason "+response.getReason()+" "+response.toString()+" body="	);
 
-        return response;
+        try {
+            jsonString = IOUtils.toString(response.getBody().in(), "UTF-8");
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading credit response.");
+        }
+
+        return Json.read(jsonString);
     }
     
    

@@ -7,9 +7,9 @@ package com.xapo.tools.widgets;
  */
 public interface PayType {
     public static final String NONE = "";
-    public static final String TIP = "Tip";
-    public static final String PAY = "Pay";
-    public static final String DEPOSIT = "Deposit";
-    public static final String DONATE = "Donate";
-    public static final String OAUTH = "OAuth";
+    public static final String TIP = "tip";
+    public static final String PAY = "pay";
+    public static final String DEPOSIT = "deposit";
+    public static final String DONATE = "donate";
+    public static final String OAUTH = "oauth2";
 }
